@@ -1,0 +1,20 @@
+[project]
+name = "nico-tutorial"
+version = "0.1.5"
+requires-python = ">=3.11"
+dependencies = [
+    "gseapy>=1.1.11",
+    "kdepy>=1.1.12",
+    "leidenalg>=0.11.0",
+    "matplotlib>=3.10.7",
+    "networkx>=3.5",
+    "numba>=0.62.1",
+    "numpy>=2.3.5",
+    "pandas>=2.3.3",
+    "pydot>=4.0.1",
+    "scanpy>=1.11.5",
+    "scikit-learn>=1.7.2",
+    "scipy>=1.16.3",
+    "seaborn>=0.13.2",
+    "xlsxwriter>=3.2.9",
+]
