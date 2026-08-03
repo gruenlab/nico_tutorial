@@ -7,6 +7,16 @@
 
 ## NiCo Package [![DOI](https://zenodo.org/badge/726983315.svg)](https://doi.org/10.5281/zenodo.13902981)
 
+<br>
+<br>
+
+> [!IMPORTANT]
+> ## Use `nico-wrapper` to apply NiCo!!!
+>
+> **For new analyses, please use [`nico-wrapper`](https://github.com/gruenlab/nico-wrapper) as the preferred way to apply NiCo going forward.**
+> `nico-wrapper` provides streamlined command-line and Python interfaces for the main NiCo workflow while continuing to use NiCo for the underlying scientific computations.
+<br>
+<br>
 
 <div align="center">
 <img src=".gitbook/assets/Figure1old.png" alt="" width="640">
