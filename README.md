@@ -131,8 +131,10 @@ conda install -c conda-forge pygraphviz
 pip install nico-sc-sp
 pip install jupyterlab
 ```
+
 ## [`nico-wrapper`](https://github.com/gruenlab/nico-wrapper) update on 01, August, 2026. For new analyses, please use [`nico-wrapper`](https://github.com/gruenlab/nico-wrapper) as the preferred way to apply NiCo going forward.
 nico-wrapper provides streamlined command-line and Python interfaces for the main NiCo workflow while continuing to use NiCo for the underlying scientific computations.
+
 
 #### 🔄 Changes in version 1.6.0 (from 1.5.0)
 
