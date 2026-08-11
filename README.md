@@ -8,6 +8,8 @@
 <br>
 <br>
 
+---
+
 ## 🚀 Start Here — Use `nico-wrapper` for New Analyses
 
 > [!IMPORTANT]
@@ -24,7 +26,7 @@
 
 
 
-
+---
 
 
 ## About NiCo
@@ -43,6 +45,8 @@ NiCo can be used to:
 <img src=".gitbook/assets/Figure1old.png" alt="" width="640">
 
 </div>
+
+---
 
 ## Table of Contents
 
@@ -153,13 +157,13 @@ pip install nico-sc-sp
 pip install jupyterlab
 ```
 
-
+---
 
 ## 📦 NiCo Package
 
-**NiCo** remains the underlying computational package used by `nico-wrapper`.
+**NiCo** remains the underlying computational package used by [`nico-wrapper`](https://github.com/gruenlab/nico-wrapper).
 
-For **new analyses**, please start with nico-wrapper updated on 1 August 2026 as the preferred way to apply NiCo going forward.
+For **new analyses**, please start with [`nico-wrapper`](https://github.com/gruenlab/nico-wrapper) updated on 1 August 2026 as the preferred way to apply NiCo going forward.
 
 ### 👉 [`nico-wrapper`](https://github.com/gruenlab/nico-wrapper)
 
