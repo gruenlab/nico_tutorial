@@ -33,11 +33,11 @@
 
 NiCo can be used to:
 
-* 🧬 Annotate spatially resolved cells using scRNA-seq information
+* 🧬 Annotate spatially resolved cells using label transfer from scRNA-seq data
 * 🤝 Predict cell–cell interactions within spatial niches
 * 🔬 Characterize cellular composition and interactions within tissue niches
-* 📊 Identify gene covariation patterns within cellular niches
-* 🧩 Integrate single-cell and spatial transcriptomic information for downstream biological interpretation
+* 📊 Identify gene covariation patterns within colocalize cell type niches
+* 🧩 Integrate scRNA-seq and spatial transcriptomic information for downstream biological interpretation
 
 <div align="center">
 <img src=".gitbook/assets/Figure1old.png" alt="" width="640">
