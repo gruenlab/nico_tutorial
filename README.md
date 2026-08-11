@@ -1,4 +1,4 @@
-# README
+# NiCo Package 
 
 <div align="center">
 <img src=".gitbook/assets/FeatureImageSuggestion.png" alt="" width="250">
@@ -9,6 +9,23 @@
 
 <br>
 <br>
+
+## 🚀 Start Here — Use `nico-wrapper` for New Analyses
+
+> [!IMPORTANT]
+>
+> ## **🆕 For new NiCo analyses, please use [`nico-wrapper`](https://github.com/gruenlab/nico-wrapper)**
+>
+> **We strongly recommend that all new users start with [`nico-wrapper`](https://github.com/gruenlab/nico-wrapper) rather than installing and running NiCo directly.**
+>
+> [`nico-wrapper`](https://github.com/gruenlab/nico-wrapper) provides a streamlined **command-line and Python interface** for the main NiCo workflow while continuing to use **NiCo as the underlying scientific computation framework**.
+>
+> ### 👉 **[Go to nico-wrapper →](https://github.com/gruenlab/nico-wrapper)**
+>
+> This repository contains the original NiCo package, documentation, tutorials, and information about previous NiCo releases. The direct NiCo installation and workflow described below are primarily provided for **existing users, reproducibility, and legacy analyses**.
+
+
+
 
 > [!IMPORTANT]
 > ## Use `nico-wrapper` to apply NiCo!!! [update on August 1, 2026]
