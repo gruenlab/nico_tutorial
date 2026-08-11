@@ -14,7 +14,7 @@
 >
 > ## **🆕 For new NiCo analyses, please use [`nico-wrapper`](https://github.com/gruenlab/nico-wrapper)**
 >
-> **We strongly recommend that all new users start with [`nico-wrapper`](https://github.com/gruenlab/nico-wrapper) rather than installing and running NiCo directly.**
+> **We strongly recommend that all new users start with [`nico-wrapper`](https://github.com/gruenlab/nico-wrapper) for better user friendly support since August 1, 2026.**
 >
 > [`nico-wrapper`](https://github.com/gruenlab/nico-wrapper) provides a streamlined **command-line and Python interface** for the main NiCo workflow while continuing to use **NiCo as the underlying scientific computation framework**.
 >
@@ -23,15 +23,6 @@
 > This repository contains the original NiCo package, documentation, tutorials, and information about previous NiCo releases. The direct NiCo installation and workflow described below are primarily provided for **existing users, reproducibility, and legacy analyses**.
 
 
-
-
-> [!IMPORTANT]
-> ## Use `nico-wrapper` to apply NiCo!!! [update on August 1, 2026]
->
-> ## **For new analyses, please use [`nico-wrapper`](https://github.com/gruenlab/nico-wrapper) as the preferred way to apply NiCo going forward.**
-> `nico-wrapper` provides streamlined command-line and Python interfaces for the main NiCo workflow while continuing to use NiCo for the underlying scientific computations.
-<br>
-<br>
 
 <div align="center">
 <img src=".gitbook/assets/Figure1old.png" alt="" width="640">
