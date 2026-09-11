@@ -4840,10 +4840,13 @@ saveas='pdf',showFitting=True,loc1=[0.75,0.95],loc2=[0.75,0.95],axis_log_scale=T
     NC_colocalized_loadings=All_loadings[NC_colocal,NC_factor_id-1]
     NC_not_colocalized_loadings= All_loadings[not_colocalized_index,NC_factor_id-1]
 
-    X1=CC_loading[:,CC_factor_id-1]
-    Y1=avg_CC_neigh_loading[:,NC_factor_id-1]
-    X2=CC_loading[colocalized_index,CC_factor_id-1]
-    Y2=avg_CC_neigh_loading[colocalized_index,NC_factor_id-1]
+    Y1=CC_loading[:,CC_factor_id-1]
+    X1=avg_CC_neigh_loading[:,NC_factor_id-1]
+    Y2=CC_loading[colocalized_index,CC_factor_id-1]
+    X2=avg_CC_neigh_loading[colocalized_index,NC_factor_id-1]
+    #Adding a mask to distinguish colocalized and not colocalized values in the scatterplot
+    coloc_mask = np.zeros(len(Y1), dtype=bool)
+    coloc_mask[np.asarray(colocalized_index, dtype=int)] = True
 
     #print(X1.shape,Y1.shape, X2.shape, Y2.shape)
     X_range,Y_pred,coef,intercept=fit_regression_line_for_scatterplot(input.lambda_c,X1,Y1)
@@ -4865,16 +4868,22 @@ saveas='pdf',showFitting=True,loc1=[0.75,0.95],loc2=[0.75,0.95],axis_log_scale=T
                    bbox=dict(boxstyle="round", facecolor="white", alpha=0.7))
     '''
 
-    X_range,Y_pred,coef,intercept=fit_regression_line_for_scatterplot(input.lambda_c,X2,Y2)
+    #X_range,Y_pred,coef,intercept=fit_regression_line_for_scatterplot(input.lambda_c,X2,Y2)
     if axis_log_scale:
-        ax.plot(X2, Y2, 'b.')
+        #ax.plot(X2, Y2, 'b.')
+        ax.plot(X1[~coloc_mask], Y1[~coloc_mask], 'b.', color='lightgray', label='Not colocalized')
+        ax.plot(X1[coloc_mask], Y1[coloc_mask], 'b.', label='Colocalized')
         ax.set_xscale('log')
         ax.set_yscale('log')
     else:
-        ax.plot(X2,Y2,'b.')
-    ax.set_xlabel(CC_name +'_Fa'+str(CC_factor_id))
-    ax.set_ylabel(NC_name + '_Fa'+str(NC_factor_id))
+        #ax.plot(X2,Y2,'b.')
+        ax.plot(X1[~coloc_mask], Y1[~coloc_mask], 'b.', color='lightgray', label='Not colocalized')
+        ax.plot(X1[coloc_mask], Y1[coloc_mask], 'b.', label='Colocalized')
+
+    ax.set_xlabel(NC_name +'_Fa'+str(NC_factor_id))
+    ax.set_ylabel(CC_name + '_Fa'+str(CC_factor_id))
     ax.set_title(f"{CC_name} instances colocalized with {NC_name}")
+    ax.legend(loc='right', frameon=True)
 
 
     if showFitting:
@@ -4895,8 +4904,8 @@ saveas='pdf',showFitting=True,loc1=[0.75,0.95],loc2=[0.75,0.95],axis_log_scale=T
     else:
         plt.close('all')
 
-    output_CC=[ X2,CC_colocalized_loadings]
-    output_NC=[ Y2,NC_colocalized_loadings]
+    output_CC=[ Y2,CC_colocalized_loadings]
+    output_NC=[ X2,NC_colocalized_loadings]
 
 
     return [output_CC,output_NC,NC_not_colocalized_loadings]
