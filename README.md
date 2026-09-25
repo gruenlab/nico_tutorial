@@ -172,7 +172,6 @@ nico-wrapper provides streamlined command-line and Python interfaces for the mai
 ---
 
 #### 🔄 Changes in Version 1.8.0 (from 1.6.0)
- 
 - Updated all package dependencies to their latest compatible versions.
 - Improved the `visualization_of_colocalized_celltype_factors_as_scatterplot` function for clearer visualization of colocalized and non-colocalized factors.
 - Special thanks to Reyna Rosales for contributing this visualization enhancement.
