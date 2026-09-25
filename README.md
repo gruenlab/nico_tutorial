@@ -142,7 +142,7 @@ Ubuntu OS 24.10 Oracular
 For detailed instruction, visit the [nico-sc-sp pip repository](https://pypi.org/project/nico-sc-sp/)
 
 ```console
-conda create -n nicoUser python=3.11
+conda create -n nicoUser python=3.12
 conda activate nicoUser
 pip install nico-sc-sp
 ```
@@ -150,7 +150,7 @@ pip install nico-sc-sp
 Sometimes, the pygraphviz package cannot be installed via pip, or during the cell type interaction part it returns an error that "neato" is not found in the path, so an alternative installation via conda is recommended. Please follow the installation of pygraphviz [here](https://pygraphviz.github.io/documentation/stable/install.html)
 
 ```console
-conda create -y -n nicoUser python=3.11
+conda create -y -n nicoUser python=3.12
 conda activate nicoUser
 conda install -c conda-forge pygraphviz
 pip install nico-sc-sp
@@ -171,7 +171,11 @@ nico-wrapper provides streamlined command-line and Python interfaces for the mai
 
 ---
 
-
+#### 🔄 Changes in Version 1.8.0 (from 1.6.0)
+ 
+- Updated all package dependencies to their latest compatible versions.
+- Improved the `visualization_of_colocalized_celltype_factors_as_scatterplot` function for clearer visualization of colocalized and non-colocalized factors.
+- Special thanks to Reyna Rosales for contributing this visualization enhancement.
 
 
 #### 🔄 Changes in version 1.6.0 (from 1.5.0)
