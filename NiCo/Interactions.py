@@ -938,19 +938,19 @@ def model_log_regression(K_fold,n_repeats,neighborhoodClass,target,lambda_c,stra
     parameters = {'C':lambda_c }
 
     if strategy=='L1_multi':
-        log_reg_model = LogisticRegression(penalty='l1',multi_class='multinomial',class_weight='balanced',solver='saga',n_jobs=n_jobs)#very slow
+        log_reg_model = LogisticRegression(penalty='l1',class_weight='balanced',solver='saga',n_jobs=n_jobs)#very slow
     if strategy=='L1_ovr':
-        log_reg_model = LogisticRegression(penalty='l1',multi_class='ovr',class_weight='balanced',solver='liblinear',n_jobs=n_jobs)
+        log_reg_model = LogisticRegression(penalty='l1',class_weight='balanced',solver='liblinear',n_jobs=n_jobs)
     if strategy=='L2_multi':
-        log_reg_model = LogisticRegression(penalty='l2',multi_class='multinomial',class_weight='balanced',solver='lbfgs',n_jobs=n_jobs)
+        log_reg_model = LogisticRegression(penalty='l2',class_weight='balanced',solver='lbfgs',n_jobs=n_jobs)
     if strategy=='L2_ovr':
-        log_reg_model = LogisticRegression(penalty='l2',multi_class='ovr',class_weight='balanced',solver='lbfgs',n_jobs=n_jobs)
+        log_reg_model = LogisticRegression(penalty='l2',class_weight='balanced',solver='lbfgs',n_jobs=n_jobs)
     if strategy=='elasticnet_multi':
-        log_reg_model = LogisticRegression(penalty='elasticnet',multi_class='multinomial',class_weight='balanced',solver='saga',n_jobs=n_jobs)
-        parameters = {'C':lambda_c, 'multi_class':['ovr','multinomial'], 'l1_ratio':np.linspace(0,1,10)  }
+        log_reg_model = LogisticRegression(penalty='elasticnet',class_weight='balanced',solver='saga',n_jobs=n_jobs)
+        parameters = {'C':lambda_c,  'l1_ratio':np.linspace(0,1,10)  }
     if strategy=='elasticnet_ovr':
-        log_reg_model = LogisticRegression(penalty='elasticnet',multi_class='ovr',class_weight='balanced',solver='saga',n_jobs=n_jobs)
-        parameters = {'C':lambda_c, 'multi_class':['ovr','multinomial'], 'l1_ratio':np.linspace(0,1,10)  }
+        log_reg_model = LogisticRegression(penalty='elasticnet',class_weight='balanced',solver='saga',n_jobs=n_jobs)
+        parameters = {'C':lambda_c, 'l1_ratio':np.linspace(0,1,10)  }
 
 
     #'''
@@ -1003,17 +1003,17 @@ def model_log_regression(K_fold,n_repeats,neighborhoodClass,target,lambda_c,stra
 
 
         if strategy=='L1_multi':
-            log_reg_model = LogisticRegression(C=lambda_c,penalty='l1',multi_class='multinomial',class_weight='balanced',solver='saga',n_jobs=n_jobs)#very slow
+            log_reg_model = LogisticRegression(C=lambda_c,penalty='l1',class_weight='balanced',solver='saga',n_jobs=n_jobs)#very slow
         if strategy=='L1_ovr':
-            log_reg_model = LogisticRegression(C=lambda_c,penalty='l1',multi_class='ovr',class_weight='balanced',solver='liblinear',n_jobs=n_jobs)
+            log_reg_model = LogisticRegression(C=lambda_c,penalty='l1',class_weight='balanced',solver='liblinear',n_jobs=n_jobs)
         if strategy=='L2_multi':
-            log_reg_model = LogisticRegression(C=lambda_c,penalty='l2',multi_class='multinomial',class_weight='balanced',solver='lbfgs',n_jobs=n_jobs)
+            log_reg_model = LogisticRegression(C=lambda_c,penalty='l2',class_weight='balanced',solver='lbfgs',n_jobs=n_jobs)
         if strategy=='L2_ovr':
-            log_reg_model = LogisticRegression(C=lambda_c,penalty='l2',multi_class='ovr',class_weight='balanced',solver='lbfgs',n_jobs=n_jobs)
+            log_reg_model = LogisticRegression(C=lambda_c,penalty='l2',class_weight='balanced',solver='lbfgs',n_jobs=n_jobs)
         if strategy=='elasticnet_multi':
-            log_reg_model = LogisticRegression(C=lambda_c,penalty='elasticnet',multi_class='multinomial',l1_ratio=0.5,class_weight='balanced',solver='saga',n_jobs=n_jobs)
+            log_reg_model = LogisticRegression(C=lambda_c,penalty='elasticnet',l1_ratio=0.5,class_weight='balanced',solver='saga',n_jobs=n_jobs)
         if strategy=='elasticnet_ovr':
-            log_reg_model = LogisticRegression(C=lambda_c,penalty='elasticnet',multi_class='ovr',l1_ratio=0.5,class_weight='balanced',solver='saga',n_jobs=n_jobs)
+            log_reg_model = LogisticRegression(C=lambda_c,penalty='elasticnet',l1_ratio=0.5,class_weight='balanced',solver='saga',n_jobs=n_jobs)
 
         pipe=Pipeline([  ('polynomial_features',polynomial),   ('StandardScaler',StandardScaler()), ('logistic_regression',log_reg_model)])
 
@@ -1192,7 +1192,14 @@ coeff_cutoff=20,saveas='pdf',transparent_mode=False,showit=True,figsize=(4.0,2.0
                 #ax.set_ylabel('value of coeff.')
                 #ax.set_xlabel('name of the coeff.')
                 #titlename=nameOfCellType[goodPredictedCellType[k]]+', conf score = {0:.3f}'.format(a[goodPredictedCellType[k]]) +'$\pm$'+str('%0.3f'%b[goodPredictedCellType[k]])
-                titlename=nameOfCellType[goodPredictedCellType[k]]+', conf. score = {0:.3f}'.format(a[goodPredictedCellType[k]]) +'$\pm$'+str('%0.3f'%b[goodPredictedCellType[k]])
+                #titlename=nameOfCellType[goodPredictedCellType[k]]+', conf. score = {0:.3f}'.format(a[goodPredictedCellType[k]]) +'$\pm$'+str('%0.3f'%b[goodPredictedCellType[k]])
+
+                titlename = (
+                        nameOfCellType[goodPredictedCellType[k]]
+                        + ', conf. score = {0:.3f}'.format(a[goodPredictedCellType[k]])
+                        + r'$\pm$'
+                        + str('%0.3f' % b[goodPredictedCellType[k]])
+                    )
 
                 titlename=titlename.replace('_',' ')
                 ax.set_title(titlename,fontsize=7)
@@ -1390,7 +1397,7 @@ removed_CTs_before_finding_CT_CT_interactions=[]):
 
     degbased_cluster=[]
     for i in range(len(cellname)):
-        degbased_cluster.append([  adata.obs_names[i],d[annot[i]] ])
+        degbased_cluster.append([  adata.obs_names[i],d[annot.iloc[i]] ])
     degbased_cluster=np.array(degbased_cluster,dtype=object)
 
 
@@ -1605,7 +1612,7 @@ with_labels=True,node_size=300,linewidths=0.5, node_font_size=8, alpha=0.5,font_
     CTFeatures=data['CTFeatures']
 
     n=len(input.nameOfCellType)
-    top=cm.get_cmap(input_colormap)
+    top=plt.colormaps.get_cmap(input_colormap)
     cumsum=np.linspace(0,1,n)
     newcmp=ListedColormap(top(cumsum))
     #newcmp=ListedColormap(top(np.linspace(0.95,0.15,n)),name="OrangeBlue")
@@ -1715,11 +1722,8 @@ edge_label_pos=0.35,edge_font_size=3):
         coef_std=data['coef_std']
         CTFeatures=data['CTFeatures']
 
-        #print(coef.shape,len(CTFeatures))
-
-
         n=len(input.nameOfCellType)
-        top=cm.get_cmap(input_colormap)
+        top=plt.colormaps.get_cmap(input_colormap)
         cumsum=np.linspace(0,1,n)
         newcmp=ListedColormap(top(cumsum))
         #newcmp=ListedColormap(top(np.linspace(0.95,0.15,n)),name="OrangeBlue")

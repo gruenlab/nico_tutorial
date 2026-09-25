@@ -32,7 +32,7 @@ def iNMF(X, k,value_lambda=5.0,thresh=1e-6,max_iters=30,nrep=1,H_init=None,W_ini
     num_genes  = X[0].shape[1]
     ns = [X[i].shape[0] for i in range(N)]
 
-    best_obj = np.Inf
+    best_obj = np.inf
     for j in range(nrep):
         np.random.seed(seed=rand_seed + j - 1)
 

@@ -451,12 +451,12 @@ def plot_cosine_and_spearman_correlation_to_factors(input,choose_celltypes=[],NO
 
         selectedGenesAvgExp_cosine=np.zeros( (len(gname2b),1) )
         for i in range(len(gname2b)):
-            ind=np.where(genename_full==gname2b[i])
+            ind=np.where(genename_full==gname2b[i])[0]
             selectedGenesAvgExp_cosine[i,0]=np.log10(CC_meanExpression[ind[0]])
 
         selectedGenesAvgExp=np.zeros( (len(gname3b),1) )
         for i in range(len(gname3b)):
-            ind=np.where(genename_full==gname3b[i])
+            ind=np.where(genename_full==gname3b[i])[0]
             selectedGenesAvgExp[i,0]=np.log10(CC_meanExpression[ind[0]])
 
 
@@ -1787,12 +1787,12 @@ def pathway_analysis(input,
 
                         if display_plot_as=='dotplot':
                             if savefigure:
-                                gseapy.dotplot(enr_res1.res2d,title=titlename1,ofname=finalsavename,fontsize=fontsize,size=circlesize,cmap = plt.cm.get_cmap(input_colormap),
+                                gseapy.dotplot(enr_res1.res2d,title=titlename1,ofname=finalsavename,fontsize=fontsize,size=circlesize,cmap = plt.colormaps.get_cmap(input_colormap),
                                 column =  object_for_color,  x = object_for_xaxis, y= object_for_yaxis, x_order = dotplot_x_order, y_order = dotplot_y_order,
                                 cutoff = pvalue_cutoff, top_term = top_term, figsize = figsize,
                                 xticklabels_rot = dotplot_xticklabels_rot , yticklabels_rot = dotplot_yticklabels_rot, marker = dotplot_marker, show_ring = dotplot_show_ring)
                             else:
-                                gseapy.dotplot(enr_res1.res2d,title=titlename1,fontsize=fontsize,size=circlesize,cmap = plt.cm.get_cmap(input_colormap),
+                                gseapy.dotplot(enr_res1.res2d,title=titlename1,fontsize=fontsize,size=circlesize,cmap = plt.colormaps.get_cmap(input_colormap),
                                 column =  object_for_color, x = object_for_xaxis, y= object_for_yaxis, x_order = dotplot_x_order, y_order = dotplot_y_order,
                                 cutoff = pvalue_cutoff, top_term = top_term, figsize = figsize,
                                 xticklabels_rot = dotplot_xticklabels_rot , yticklabels_rot = dotplot_yticklabels_rot, marker = dotplot_marker, show_ring = dotplot_show_ring)
@@ -2375,7 +2375,8 @@ def multiplicative_method(W,H,A,max_iter):
     The update rules for `W` and `H` are based on minimizing the Frobenius norm of the difference between `A` and `W @ H`. The update for `H` is performed as:
 
     .. math::
-        H_{ij} = H_{ij}  \frac{(W^T A)_{ij}}{(W^T W H)_{ij} + \epsilon}
+        r"H_{ij} = H_{ij}  \frac{(W^T A)_{ij}}{(W^T W H)_{ij} + \epsilon}"
+
 
     where `ε` is a small constant to prevent division by zero.
 
@@ -4776,7 +4777,8 @@ def fit_regression_line_for_scatterplot(lambda_c,X,Y):
 
     return X_range,Y_pred,coef,intercept
 
-
+#### ankit #########
+'''
 def visualization_of_colocalized_celltype_factors_as_scatterplot(input,CC_name, NC_name, CC_factor_id,NC_factor_id,
 saveas='pdf',showFitting=True,loc1=[0.75,0.95],loc2=[0.75,0.95],axis_log_scale=True,showit=True,transparent_mode=False,dpi=300,figsize=(6,5)):
     savefigdir=input.covariation_dir+ 'colocalization/'
@@ -4830,12 +4832,6 @@ saveas='pdf',showFitting=True,loc1=[0.75,0.95],loc2=[0.75,0.95],axis_log_scale=T
     print("Total number of colocalized celltype pairs", no_of_colocalized_pairs)
     #,CC_instance.shape,NC_instance.shape,len(CC_colocal),len(NC_colocal))
 
-    '''
-    for i in range(len(input.spatialcell_unique_clustername)):
-        if input.spatialcell_unique_clustername[i]==NC_name:
-            NC_data_allinfo=input.save_reg_coef[input.spatialcell_unique_clusterid[i]]
-    NC_loading=NC_data_allinfo[5]
-    '''
     CC_colocalized_loadings=All_loadings[CC_colocal,CC_factor_id-1]
     NC_colocalized_loadings=All_loadings[NC_colocal,NC_factor_id-1]
     NC_not_colocalized_loadings= All_loadings[not_colocalized_index,NC_factor_id-1]
@@ -4849,21 +4845,7 @@ saveas='pdf',showFitting=True,loc1=[0.75,0.95],loc2=[0.75,0.95],axis_log_scale=T
     X_range,Y_pred,coef,intercept=fit_regression_line_for_scatterplot(input.lambda_c,X1,Y1)
 
     fig, ax = plt.subplots(1,1,figsize=figsize)
-    '''
-    ax[0].plot(X1,Y1 ,'b.')
-    ax[0].set_xlabel(CC_name +'_Fa'+str(CC_factor_id))
-    ax[0].set_ylabel(NC_name + '_Fa'+str(NC_factor_id))
-    ax[0].set_title(f"All {CC_name} instances")
 
-    if showFitting:
-        ax[0].plot(X_range, Y_pred, color='red', label='Regression line')
-        ax[0].text(loc1[0], loc1[1],
-                   f"coef = {coef[0]:.3f}\nintercept = {intercept[0]:.3f}",
-                   transform=ax[0].transAxes,
-                   fontsize=10,
-                   verticalalignment='top',
-                   bbox=dict(boxstyle="round", facecolor="white", alpha=0.7))
-    '''
 
     X_range,Y_pred,coef,intercept=fit_regression_line_for_scatterplot(input.lambda_c,X2,Y2)
     if axis_log_scale:
@@ -4900,6 +4882,124 @@ saveas='pdf',showFitting=True,loc1=[0.75,0.95],loc2=[0.75,0.95],axis_log_scale=T
 
 
     return [output_CC,output_NC,NC_not_colocalized_loadings]
+'''
+
+def visualization_of_colocalized_celltype_factors_as_scatterplot(input,CC_name, NC_name, CC_factor_id,NC_factor_id,
+saveas='pdf',showFitting=True,loc1=[0.75,0.95],loc2=[0.75,0.95],axis_log_scale=True,showit=True,transparent_mode=False,dpi=300,figsize=(6,5)):
+    savefigdir=input.covariation_dir+ 'colocalization/'
+    create_directory(savefigdir)
+    no_of_factors=input.no_of_pc
+    neighbors=input.neighbors
+    neigh_distances=input.neigh_distances
+
+    data1=np.load(input.outputname,allow_pickle=True)
+    data1=data1['weighted_neighborhood_of_factors_in_niche']
+    data=np.nan_to_num(data1)
+
+    #featureVector=range(input.no_of_pc,data.shape[1]) # #just neighborhood
+    #AllneighborhoodClass= data[:,featureVector]
+    All_loadings= data[:,0:input.no_of_pc]
+
+    #read cell type ID information
+    #df=pd.read_csv(output_nico_dir+'used_CT.txt',sep='\t',header=None)
+    #df.columns = ['cell_type_id', 'cell_type_name', 'freq']
+    #df['cell_type_name']==central_celltype
+
+    #central_celltype_id = df.loc[df['cell_type_name'] == central_celltype, 'cell_type_id'].iloc[0]
+    #print("ID of central cell type",central_celltype_id)
+
+    flag=True
+    for i in range(len(input.spatialcell_unique_clustername)):
+        if input.spatialcell_unique_clustername[i]==CC_name:
+            central_celltype_id=input.spatialcell_unique_clusterid[i]
+            flag=False
+    if flag:
+        print('Input central cell type name do not exist')
+    else:
+        CC_data_allinfo=input.save_reg_coef[central_celltype_id]
+    #information stored in CC_data in following order
+    #[coef,intercept,alpha,xlabel,score,target,neighborhoodClass,pv,percent_variance_explained,residual_variance_explained]
+
+    #dependent variable / response / target
+    CC_loading=CC_data_allinfo[5]
+    CC_neighborhood_loading=CC_data_allinfo[6]
+    CC_neighborhood_celltype_labels=CC_data_allinfo[3]
+    #print("Central cell feature", len(neighbors),CC_neighborhood_loading.shape, CC_neighborhood_celltype_labels)
+    #independent variable / predictor / feature
+    avg_CC_neigh_loading=get_data_of_neighboring_nich_instance(CC_neighborhood_celltype_labels, CC_neighborhood_loading, NC_name,no_of_factors)
+    #print("Neighborhood cell feature", avg_CC_neigh_loading.shape)
+
+
+    CC_instance=np.where(input.annotation_spatial_celltypename==CC_name)[0]
+    NC_instance=np.where(input.annotation_spatial_celltypename==NC_name)[0]
+    no_of_colocalized_pairs,colocalized_index,not_colocalized_NC_index,not_colocalized_CC_index,CC_colocal,NC_colocal=find_colocalized_celltype_pairs(neighbors,CC_instance,NC_instance)
+
+    print("Total number of colocalized celltype pairs", no_of_colocalized_pairs)
+    #,CC_instance.shape,NC_instance.shape,len(CC_colocal),len(NC_colocal))
+
+    '''
+    for i in range(len(input.spatialcell_unique_clustername)):
+        if input.spatialcell_unique_clustername[i]==NC_name:
+            NC_data_allinfo=input.save_reg_coef[input.spatialcell_unique_clusterid[i]]
+    NC_loading=NC_data_allinfo[5]
+    '''
+
+    CC_colocalized_loadings=All_loadings[CC_colocal,CC_factor_id-1]
+    NC_colocalized_loadings=All_loadings[NC_colocal,NC_factor_id-1]
+    CC_not_colocalized_loadings= All_loadings[not_colocalized_CC_index,CC_factor_id-1]
+    NC_not_colocalized_loadings= All_loadings[not_colocalized_NC_index,NC_factor_id-1]
+
+    Y1=CC_loading[:,CC_factor_id-1]
+    X1=avg_CC_neigh_loading[:,NC_factor_id-1]
+    Y2=CC_loading[colocalized_index,CC_factor_id-1]
+    X2=avg_CC_neigh_loading[colocalized_index,NC_factor_id-1]
+    #Adding a mask to distinguish colocalized and not colocalized values in the scatterplot
+    coloc_mask = np.zeros(len(Y1), dtype=bool)
+    coloc_mask[np.asarray(colocalized_index, dtype=int)] = True
+
+    #print(X1.shape,Y1.shape, X2.shape, Y2.shape)
+    X_range,Y_pred,coef,intercept=fit_regression_line_for_scatterplot(input.lambda_c,X1,Y1)
+
+    fig, ax = plt.subplots(1,1,figsize=figsize)
+
+    #X_range,Y_pred,coef,intercept=fit_regression_line_for_scatterplot(input.lambda_c,X2,Y2)
+    if axis_log_scale:
+        #ax.plot(X2, Y2, 'b.')
+        ax.plot(X1[~coloc_mask], Y1[~coloc_mask], 'b.', color='lightgray', label='Not colocalized')
+        ax.plot(X1[coloc_mask], Y1[coloc_mask], 'b.', label='Colocalized')
+        ax.set_xscale('log')
+        ax.set_yscale('log')
+    else:
+        #ax.plot(X2,Y2,'b.')
+        ax.plot(X1[~coloc_mask], Y1[~coloc_mask], 'b.', color='lightgray', label='Not colocalized')
+        ax.plot(X1[coloc_mask], Y1[coloc_mask], 'b.', label='Colocalized')
+
+    ax.set_xlabel(NC_name +'_Fa'+str(NC_factor_id))
+    ax.set_ylabel(CC_name + '_Fa'+str(CC_factor_id))
+    ax.set_title(f"{CC_name} instances colocalized with {NC_name}")
+    ax.legend(loc='right', frameon=True)
+
+
+    if showFitting:
+            ax.plot(X_range, Y_pred, color='red', label='Regression line')
+            ax.text(loc2[0], loc2[1],f"coef = {coef.item():.3f}\nintercept = {intercept.item():.3f}", transform=ax.transAxes,fontsize=10,
+                   verticalalignment='top',
+                   bbox=dict(boxstyle="round", facecolor="white", alpha=0.7))
+
+    fig.tight_layout()
+    #print(saveas,savepath+'pvalue_cirlce_sizebar'+saveas)
+    print("The figures are saved: ", savefigdir+'colocalize_celltypes_scatter.'+saveas)
+    fig.savefig(savefigdir+'colocalize_celltypes_scatter.'+saveas,bbox_inches='tight',transparent=transparent_mode, dpi=dpi)
+    if showit:
+        pass
+    else:
+        plt.close('all')
+
+    output_CC=[ Y2,CC_colocalized_loadings]
+    output_NC=[ X2,NC_colocalized_loadings]
+
+    return [output_CC,output_NC,CC_not_colocalized_loadings,NC_not_colocalized_loadings]
+
 
 
 def find_colocalized_celltype_pairs(neighbors, CC_instance, NC_instance):
@@ -4930,13 +5030,17 @@ def find_colocalized_celltype_pairs(neighbors, CC_instance, NC_instance):
 
     #print("hello", len(NC_instance), len(NC_colocalized) )
 
-    not_colocalized_index = sorted(list(NC - set(NC_colocalized)))
+    not_colocalized_NC_index = sorted(list(NC - set(NC_colocalized)))
+    not_colocalized_CC_index = sorted(list(CC - set(CC_colocalized)))
 
-    return count,colocalized_index,not_colocalized_index,CC_colocalized,NC_colocalized
+    return count,colocalized_index,not_colocalized_NC_index,not_colocalized_CC_index,CC_colocalized,NC_colocalized
 
 
-def visualization_of_colocalized_celltype_factors_as_bar_violin_plot(input,CC_name, NC_name,CC_factor_id, NC_factor_id,
-CC_unique_colocalized_loadings, NC_unique_colocalized_loadings, NC_not_colocalized_loadings, visualize_as='BarPlot',
+def visualization_of_colocalized_celltype_factors_as_bar_violin_plot(input,CC_name, NC_name,
+CC_factor_id, NC_factor_id,
+CC_unique_colocalized_loadings, NC_unique_colocalized_loadings,
+CC_not_colocalized_loadings, NC_not_colocalized_loadings,
+visualize_as='BarPlot',
 rotation_angle=20,violin_yshift=0.5,fontsize=10,saveas='pdf',showit=True,transparent_mode=False,dpi=300,figsize=(6,4)):
 
     savefigdir=input.covariation_dir+ 'colocalization/'
@@ -4946,6 +5050,7 @@ rotation_angle=20,violin_yshift=0.5,fontsize=10,saveas='pdf',showit=True,transpa
     groups = {
         f"{CC_name}_Fa{CC_factor_id}_coloc": CC_unique_colocalized_loadings,
         f"{NC_name}_Fa{NC_factor_id}_coloc": NC_unique_colocalized_loadings,
+        f"{CC_name}_Fa{CC_factor_id}_not_coloc": CC_not_colocalized_loadings,
         f"{NC_name}_Fa{NC_factor_id}_not_coloc": NC_not_colocalized_loadings,
     }
 

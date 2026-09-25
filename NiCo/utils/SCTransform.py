@@ -49,7 +49,7 @@ def _parallel_init(igenes_bin_regress,iumi_bin,ign,imm,ips):
 
 def _parallel_wrapper(j):
     name = gn[genes_bin_regress[j]]
-    y = umi_bin[:,j].A.flatten()
+    y = umi_bin[:,j].toarray().ravel()
     pr = statsmodels.discrete.discrete_model.Poisson(y,mm)
     res = pr.fit(disp=False)
     mu = res.predict()

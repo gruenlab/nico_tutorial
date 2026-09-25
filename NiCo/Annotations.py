@@ -1560,7 +1560,7 @@ def resolved_confused_and_unmapped_mapping_of_cells_with_majority_vote(confused,
 def visualize_umap_and_cell_coordinates_with_all_celltypes(output_annotation_dir=None,output_nico_dir=None,
 anndata_object_name='nico_celltype_annotation.h5ad',
 spatial_cluster_tag='nico_ct',spatial_coordinate_tag='spatial',umap_tag='X_umap',
-number_of_iteration_to_perform_celltype_annotations=3,cmap=plt.cm.get_cmap('jet'),saveas='pdf',transparent_mode=False,showit=True,figsize=(15,6)):
+number_of_iteration_to_perform_celltype_annotations=3,cmap = plt.colormaps['jet'],saveas='pdf',transparent_mode=False,showit=True,figsize=(15,6)):
 
     """
     Visualize UMAP and spatial coordinates with all cell types annotated in a single plot.
@@ -1647,7 +1647,7 @@ number_of_iteration_to_perform_celltype_annotations=3,cmap=plt.cm.get_cmap('jet'
 
     degbased_cluster=[]
     for i in range(len(cellname)):
-        degbased_cluster.append([  adata.obs_names[i],d[annot[i]] ])
+        degbased_cluster.append([  adata.obs_names[i],d[annot.iloc[i]] ])
     degbased_cluster=np.array(degbased_cluster)
 
 
@@ -1731,7 +1731,7 @@ output_annotation_dir=None,output_nico_dir=None,
 anndata_object_name='nico_celltype_annotation.h5ad',
 spatial_cluster_tag='nico_ct',spatial_coordinate_tag='spatial',umap_tag='X_umap',
 number_of_iteration_to_perform_celltype_annotations=3,choose_celltypes=[],msna=0.1,ms=0.5, showit=True,
-cmap=plt.cm.get_cmap('jet'),saveas='pdf',transparent_mode=False,figsize=(8,3.5)):
+cmap = plt.colormaps['jet'], saveas='pdf',transparent_mode=False,figsize=(8,3.5)):
 
     """
     Visualize UMAP and cell coordinates with selected cell types.
@@ -1829,7 +1829,7 @@ cmap=plt.cm.get_cmap('jet'),saveas='pdf',transparent_mode=False,figsize=(8,3.5))
 
     degbased_cluster=[]
     for i in range(len(cellname)):
-        degbased_cluster.append([  adata.obs_names[i],d[annot[i]] ])
+        degbased_cluster.append([  adata.obs_names[i],d[annot.iloc[i]] ])
     degbased_cluster=np.array(degbased_cluster)
 
     if len(choose_celltypes)==0:
